@@ -142,6 +142,6 @@
         ptr = getenv(argv[1]); /* Get env var location. */
         ptr += (strlen(argv[0]) - strlen(argv[2]))*2; /* Adjust for program name. */
         printf("%s will be at %p\n", argv[1], ptr);
-}
+   }
 
 #
