@@ -144,4 +144,32 @@
         printf("%s will be at %p\n", argv[1], ptr);
    }
 
-#
+## 
+		char *i = argv[1];
+		printf("My name is : %s", i);
+
+			If printf finds the first argument as %s format string, it will switch to second argument which is i and dereference it
+			and will print the value stored at argv[1]
+
+# Format String Vulnerability basics
+
+	> A format string is an ASCIIZ string used to specify and control the representation of different variables
+
+		int a;
+		printf("%d", a);
+			
+		%d ---> Format String 
+		This tells the printf function to convert integer `a` into the format of a string
+
+		printf is a format function 
+
+
+	> Happens when user input is used as-is in the format string 
+
+       >  There is the ‘%n’parameter, which writes the number of bytes already printed, into a variable of our choice. The address of the 			variable is given to the format function by placing an integer pointer as parameter onto the stack.
+
+	>  ‘%s’ displays memory from an address that is supplied on the stack. 
+
+## Resources
+https://github.com/FabioBaroni/awesome-exploit-development/blob/master/README.md
+https://crypto.stanford.edu/cs155/papers/formatstring-1.2.pdf
