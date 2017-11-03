@@ -172,4 +172,5 @@
 
 ## Resources
 https://github.com/FabioBaroni/awesome-exploit-development/blob/master/README.md
+
 https://crypto.stanford.edu/cs155/papers/formatstring-1.2.pdf
